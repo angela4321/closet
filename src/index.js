@@ -1,12 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import Home from './home/home'
+import Inventory from './inventory/inventory'
+import Outfits from './outfits/outfits'
+import cart from './cart/cart'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Switch>
+        <Route path='/inventory' component={Inventory}/>
+        <Route path='/outfits' component={Outfits}/>
+        <Route path='/cart' component={cart}/>
+        <Route path='/' component={Home}/>
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
