@@ -1,16 +1,20 @@
-import { React, useState } from 'react';
+import { React, useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './outfits.css'
 import Outfit from './outfit'
 import Popup from './popup'
+import ls from 'local-storage'
 const Outfits = () => {
-    const [fits, setFits] = useState([
-        [1, 3, 2, 4],
-        [2, 3],
-        [1, 4],
-        [2, 4],
-    ])
+
+    if( !ls.get("outfits")){
+        ls.set("outfits",[])
+    }
+    const [fits, setFits] = useState(ls.get("outfits"))
+
     const [showPopup, setShowPopup] = useState(false)
+    useEffect(()=>{
+        ls.set("outfits",fits)
+    })
 
     const pics = fits.map((arr) => {
         return (
