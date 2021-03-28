@@ -35,6 +35,9 @@ const Cart = () => {
                 <button class='btn btn-success p-2' onClick={()=>click("all")}>All</button>
                 <button class='btn btn-success p-2' onClick={()=>click("tops")}>Tops</button>
                 <button class='btn btn-success p-2' onClick={()=>click("bottoms")}>Bottoms</button>
+                <button class='btn btn-success p-2' onClick={()=>click("shoes")}>Shoes</button>
+                <button class='btn btn-success p-2' onClick={()=>click("accessories")}>Accessories</button>
+                <button class='btn btn-success p-2' onClick={()=>click("hats")}>Hats</button>
             </div>
             <div class='d-flex p-2 flex-wrap'>
                 {cl}

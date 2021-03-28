@@ -25,6 +25,9 @@ const Inventory = () => {
                 <button class='btn btn-success p-2' onClick={()=>setCategory("all")}>All</button>
                 <button class='btn btn-success p-2' onClick={()=>setCategory("tops")}>Tops</button>
                 <button class='btn btn-success p-2' onClick={()=>setCategory("bottoms")}>Bottoms</button>
+                <button class='btn btn-success p-2' onClick={()=>setCategory("shoes")}>Shoes</button>
+                <button class='btn btn-success p-2' onClick={()=>setCategory("accessories")}>Accessories</button>
+                <button class='btn btn-success p-2' onClick={()=>setCategory("hats")}>Hats</button>
             </div>
             <div class='d-flex p-2 flex-wrap'>
                 {cl}
