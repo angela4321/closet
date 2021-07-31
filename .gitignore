@@ -2,7 +2,11 @@
 
 # dependencies
 /frontend/node_modules
+/frontend/src/images/
+/frontend/public/images/
 /backend/node_modules
+/backend/closetServer/node_modules
+/backend/closetServer/public/images
 /.pnp
 .pnp.js
 
