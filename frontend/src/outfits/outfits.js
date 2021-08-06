@@ -1,51 +1,56 @@
-import { React, useState,useEffect } from 'react';
+import * as React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import './outfits.css'
 import Outfit from './outfit'
 import Popup from './popup'
-import ls from 'local-storage'
-const Outfits = () => {
-
-    if( !ls.get("outfits")){
-        ls.set("outfits",[])
+class Outfits extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            fits: [],
+            showPopup: false,
+            data: []
+        }
+        this.getData();
     }
-    const [fits, setFits] = useState(ls.get("outfits"))
-
-    const [showPopup, setShowPopup] = useState(false)
-    useEffect(()=>{
-        ls.set("outfits",fits)
-    })
-
-    const pics = fits.map((arr) => {
+    getPics = () => {
         return (
-            <Outfit ids={arr} />
-        )
-    })
-    const getPics=()=>{
-        console.log(fits)
-        return( 
-            fits.map((arr) => {
+            this.state.fits.map((arr) => {
                 return (
-                    <Outfit ids={arr} />
-                ) 
-            }) 
+                    <Outfit data={this.state.data} fits={arr} />
+                )
+            })
         )
-        
+
     }
-    if (showPopup) {
+    getData = () => {
+        fetch("http://localhost:3000/upload").then((res) => res.json())
+        .then((clothes) => {
+            this.setState({data: clothes})
+        })
+    }
+
+    render() {
+        if (this.state.showPopup) {
+            return (
+                <Popup close={(show) => {
+                    this.setState({showPopup: show})
+                }} 
+                create={(fits) =>{
+                    this.setState({fits: fits})
+                }} fits={this.state.fits} data={this.state.data}/>
+            )
+        }
         return (
-            <Popup close={setShowPopup} create={setFits} fits={fits} />
+            <div>
+                <div class='d-flex flex-wrap'>
+                    {this.getPics()}
+                </div>
+                <button class='add btn btn-success' onClick={() => this.setState({showPopup: true})}>Add outfit</button>
+
+            </div>
         )
     }
-    return (
-        <div>
-            <div class='d-flex flex-wrap'>
-                {getPics()}
-            </div>
-            <button class='add btn btn-success' onClick={() => setShowPopup(true)}>Add outfit</button>
-           
-        </div>
-    )
 }
 
 export default Outfits

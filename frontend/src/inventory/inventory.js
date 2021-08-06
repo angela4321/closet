@@ -1,24 +1,19 @@
 import { React, useState } from 'react';
 
-// import 'bootstrap/dist/js/bootstrap.js';
-// import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-// const c = require("./public/images/profile")
 import './inventory.css'
-const c = require('../images/ProfessionalHeadshot.jpg')
-// import clothes from '../images/images'
 const Inventory = () => {
 
     const [clothes, setClothes] = useState([]);
     const [category, setCategory] = useState("all");
     async function getClothes () {
-        const data = await fetch("http://localhost:3000/upload").then((res)=>res.json())
+        await fetch("http://localhost:3000/upload").then((res)=>res.json())
         .then((data) => {
             return data.map((c) => {
-                if (c.category == category || category == "all") {
+                if (c.category === category || category === "all") {
                     var path = "../images"+c.image.substr(c.image.lastIndexOf('/'));
                     var im = document.createElement("IMG");
                     im.setAttribute("src", path);
@@ -33,13 +28,13 @@ const Inventory = () => {
         })
         .then((cl) => {
             var changed = false;
-            if(cl.length!=clothes.length) changed=true;
+            if(cl.length!==clothes.length) changed=true;
             if(changed){
                 setClothes(cl);
                 return;
             }
             for(var i = 0; i < cl.length; i++){
-                if (cl[i].key!=clothes[i].key){
+                if (cl[i].key!==clothes[i].key){
                     changed = true;
                     break;
                 }

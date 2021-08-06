@@ -2,15 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './home.css'
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 const Home = () => {
-    const method = () => {
-        console.log("here")
-    }
     return (
         <div class="home d-flex align-items-center flex-column p-2 ">
             <h1 class='p-2'>HOME</h1>
