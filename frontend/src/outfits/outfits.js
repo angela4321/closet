@@ -12,16 +12,27 @@ class Outfits extends React.Component {
             data: []
         }
         this.getData();
+        this.getFits();
     }
     getPics = () => {
+        console.log(this.state.fits);
         return (
-            this.state.fits.map((arr) => {
+            this.state.fits.map((fit) => {
                 return (
-                    <Outfit data={this.state.data} fits={arr} />
+                    <Outfit data={this.state.data} fits={fit} />
                 )
             })
         )
+    }
+    getFits = () => {
+        var fits = []
+        fetch("http://localhost:3000/outfits").then((res) => res.json())
+        .then((outfits) => {
+            outfits.map((outfit)=>{
+                this.setState({fits: this.state.fits.concat([outfit.clothes])})
 
+            })
+        })
     }
     getData = () => {
         fetch("http://localhost:3000/upload").then((res) => res.json())

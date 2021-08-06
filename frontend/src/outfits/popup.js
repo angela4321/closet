@@ -56,6 +56,16 @@ class Popup extends React.Component {
     }
     
     save = () => {
+        const outfit = {
+            clothes: this.state.selected
+        }
+        fetch("http://localhost:3000/outfits", {
+            method: 'POST',
+            body: JSON.stringify(outfit),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
         this.props.create(this.props.fits.concat([this.state.selected]));
         this.props.close(false);
     }

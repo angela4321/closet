@@ -43,16 +43,6 @@ const Inventory = () => {
                 setClothes(cl);
             }
         });
-        // const cl = data.map((c) => {
-        //     if (c.category == category || category == "all") {
-        //         var path = "../images"+c.image.substr(c.image.lastIndexOf('/'));
-        //         var im = document.createElement("IMG");
-        //         im.setAttribute("src", path);
-        //         return (
-        //             <img key={c._id} alt='pic' className='p-2 cloth' src={im.src} />
-        //         )
-        //     }
-        // })
         
     }
     getClothes();

@@ -4,6 +4,7 @@ import './outfit.css'
 class Outfit extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props.fits);
         const clothes = props.data.map((item) => {
             if(props.fits.some(id => id===item._id)){
                 var path = "../images" + item.image.substr(item.image.lastIndexOf('/'));
