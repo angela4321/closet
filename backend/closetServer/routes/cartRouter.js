@@ -5,7 +5,8 @@ const multer = require('multer');
 const cors = require('./cors');
 
 const itemSchema = require('../schemas/itemSchema');
-var Items = mongoose.model('Item',itemSchema);
+var CartItems = mongoose.model('CartItems',itemSchema);
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -26,13 +27,13 @@ const imgFilter = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: imgFilter });
 
-const itemRouter = express.Router();
-itemRouter.use(bodyParser.json());
+const cartRouter = express.Router();
+cartRouter.use(bodyParser.json());
 
-itemRouter.route('/')
-.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
-    .get(cors.corsWithOptions,(req, res, next) => {
-        Items.find(req.query)
+cartRouter.route('/')
+    .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+    .get(cors.corsWithOptions, (req, res, next) => {
+        CartItems.find(req.query)
             .then((items) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -40,19 +41,19 @@ itemRouter.route('/')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .post(cors.corsWithOptions,upload.single("image"),(req, res, next) => { //TODO add upload.single
-        req.body.image = __dirname+req.file.path;
+    .post(cors.corsWithOptions, upload.single("image"), (req, res, next) => { //TODO add upload.single
+        req.body.image = __dirname + req.file.path;
         console.log(req.body);
-        Items.create(req.body)
+        CartItems.create(req.body)
             .then((item) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(item)
             }, (err) => next(err))
-            //.catch((err) => next(err));
+        //.catch((err) => next(err));
     })
-    .delete(cors.corsWithOptions,(req, res, next) => {
-        Items.remove({})
+    .delete(cors.corsWithOptions, (req, res, next) => {
+        CartItems.remove({})
             .then((response) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -62,10 +63,10 @@ itemRouter.route('/')
     })
 
 
-itemRouter.route('/:itemId')
-.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
-    .get(cors.corsWithOptions,(req, res, next) => {
-        Items.findById(req.params.itemId)
+cartRouter.route('/:itemId')
+    .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+    .get(cors.corsWithOptions, (req, res, next) => {
+        CartItems.findById(req.params.itemId)
             .then((item) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -73,8 +74,8 @@ itemRouter.route('/:itemId')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .delete(cors.corsWithOptions,(req,res,next)=>{
-        Items.findByIdAndRemove(req.params.itemId)
+    .delete(cors.corsWithOptions, (req, res, next) => {
+        CartItems.findByIdAndRemove(req.params.itemId)
             .then((item) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -83,4 +84,4 @@ itemRouter.route('/:itemId')
             .catch((err) => next(err));
     })
 
-module.exports = itemRouter;
+module.exports = cartRouter;

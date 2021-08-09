@@ -21,7 +21,7 @@ class Outfit extends React.Component {
     }
     render() {
         return (
-            <div class='fit d-flex flex-row flex-wrap'>
+            <div className='fit d-flex flex-row flex-wrap'>
                 {this.state.clothes}
             </div>
         )

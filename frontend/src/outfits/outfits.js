@@ -17,9 +17,9 @@ class Outfits extends React.Component {
     getPics = () => {
         console.log(this.state.fits);
         return (
-            this.state.fits.map((fit) => {
+            this.state.fits.map((fit,index) => {
                 return (
-                    <Outfit data={this.state.data} fits={fit} />
+                    <Outfit key={index} data={this.state.data} fits={fit} />
                 )
             })
         )
@@ -54,10 +54,10 @@ class Outfits extends React.Component {
         }
         return (
             <div>
-                <div class='d-flex flex-wrap'>
+                <div className='d-flex flex-wrap'>
                     {this.getPics()}
                 </div>
-                <button class='add btn btn-success' onClick={() => this.setState({showPopup: true})}>Add outfit</button>
+                <button className='add btn btn-success' onClick={() => this.setState({showPopup: true})}>Add outfit</button>
 
             </div>
         )
